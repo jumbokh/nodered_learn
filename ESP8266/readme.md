@@ -4,7 +4,7 @@
 ### 在Arduino 工具->開發板 選擇 NodeMCU 1.0 (ESP-12E Module)
 ### 從裝置管理員 查看 COM PORT
 ### 在Arduino 工具->序列埠 選擇 COM PORT
-
+### 安裝板子： http://arduino.esp8266.com/stable/package_esp8266com_index.json
 ## Test sequence:
 #### 1. server_test
 #### 2. server_test_onoff
