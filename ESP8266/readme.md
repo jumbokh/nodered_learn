@@ -6,8 +6,11 @@
 ### 在Arduino 工具->序列埠 選擇 COM PORT
 ### 安裝板子： http://arduino.esp8266.com/stable/package_esp8266com_index.json
 ## Test sequence:
-#### 1. server_test
-#### 2. server_test_onoff
-#### 3. led_pwm
-#### 4. led_onoff
-#### 5. reference: ESP8266_REST
+#### 1. esp8266_wifiscan
+#### 2. dht11_example
+#### 3. esp8266_DHT11_data
+#### 4. server_test
+#### 5. server_test_onoff
+#### 6. led_pwm
+#### 7. led_onoff
+#### 8. reference: ESP8266_REST

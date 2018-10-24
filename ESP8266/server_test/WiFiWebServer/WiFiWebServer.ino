@@ -9,8 +9,8 @@
 
 #include <ESP8266WiFi.h>
 
-const char* ssid = "informatics";
-const char* password = "0953313123";
+const char* ssid = "your-ssid";
+const char* password = "your-pass";
 
 // Create an instance of the server
 // specify the port to listen on as an argument
@@ -32,7 +32,7 @@ void setup() {
 
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
-  WiFi.config(IPAddress(192,168,43,88),    // IP位址
+  WiFi.config(IPAddress(192,168,43,xx),    // IP位址
                IPAddress(192,168,43,254),     // 閘道（gateway）位址
                IPAddress(255,255,255,0));  // 網路遮罩（netmask）
   while (WiFi.status() != WL_CONNECTED) {
