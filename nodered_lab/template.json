@@ -1,0 +1,24 @@
+<table style="width:100%">
+  <tr>
+    <th>Index</th> 
+    <th>Timestamp</th>
+    <th>ID</th> 
+    <th>Temperature</th>
+	<th>Humidity</th>
+	<th>Wind Direction</th>
+	<th>Wind Speed</th>
+	<th>Light</th>
+	<th>Rain</th>
+  </tr>
+  <tr ng-repeat="x in msg.payload | limitTo:20">
+    <td>{{$index}}</td>
+    <td>{{x.timestamp}}</td>
+    <td>{{x.id}}</td> 
+    <td>{{msg.payload[$index].temp}}</td>
+	<td>{{msg.payload[$index].humidity}}</td>
+	<td>{{msg.payload[$index].wdir}}</td>
+	<td>{{msg.payload[$index].wspeed}}</td>
+	<td>{{msg.payload[$index].light}}</td>
+	<td>{{msg.payload[$index].rain}}</td>
+  </tr>
+</table>

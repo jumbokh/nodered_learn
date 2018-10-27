@@ -1,0 +1,1 @@
+[{"id":"1f5919d7.df5286","type":"function","z":"f0ab6dd0.2991c","name":"cake","func":"\nvar cake = global.get('cake') || 0;\ncake += 1;\nglobal.set('cake',cake);\nmsg.payload = cake;\nreturn msg;","outputs":1,"noerr":0,"x":669.9999389648438,"y":195.99998474121094,"wires":[[]]}]
