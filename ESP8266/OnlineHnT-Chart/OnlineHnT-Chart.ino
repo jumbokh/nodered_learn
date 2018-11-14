@@ -17,8 +17,8 @@ float humidity,temperature;
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 
-const char* ssid = "informatics";     // your network SSID (name)
-const char* password = "0953313123";  // your network password
+const char* ssid = "--------";     // your network SSID (name)
+const char* password = "--------";  // your network password
 
 
 //
