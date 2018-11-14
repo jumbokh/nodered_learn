@@ -9,11 +9,11 @@
 #include <WiFi.h>
 
 const char* ssid     = "informatics";
-const char* password = "0953313123";
+const char* password = "--------";
 
 const char* host = "api.thingspeak.com";
 //const char* host = "192.168.43.4";
-const char* privateKey = "U5PW627NKOE6J9SF";
+const char* privateKey = "U5PWXXXNKOE6J9SF";
 
 void setup()
 {
