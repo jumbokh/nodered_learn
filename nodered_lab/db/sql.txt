@@ -1,0 +1,15 @@
+var myJSON = JSON.stringify(msg.payload.weather);
+let user = JSON.parse(myJSON);
+msg.payload = user.timestamp+","+user.Temp+","+user.Humi;
+return msg;
+
+
+msg.topic = 
+"INSERT INTO dhtreadings(temperature, humidity, currentdate, currenttime, device)" +
+"values(" + user.Temp + "," + user.Humi + ",\"" + user.date + "\",\"" + user.time + "\"," +
++ "\"manual\")";
+
+
+
+INSERT INTO dhtreadings(temperature, humidity, currentdate, currenttime, device) 
+   values(22.4, 48, date('now'), time('now'), "manual")
