@@ -1,0 +1,9 @@
+<div layout="row" layout-align="start center">
+  <span flex>時間</span>
+  <span flex>溫度</span>
+  <span flex>濕度</span>
+</div>
+<div layout="row" layout-align="start center" >
+  <span flex style="color: green">{{msg.payload.weather.t}}</span>
+  <span flex style="color: red">{{msg.payload.weather.T}}</span>
+  <span flex style="color: black">{{msg.payload.weather.H}}%</span>
