@@ -31,4 +31,4 @@
         - endTimeStamp: 區間結束點的 timestamp (required)
     Example URL: http://airbox.asuscloud.com/airbox/device/7BC4FFFF9874/1456761600000/1459353600000
 * [code](https://github.com/howardweng/FLASS)
-* [Slack Webhook URL](https://hooks.slack.com/services/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)
+* [Slack Webhook URL](xhttps://hooks.slack.com/services/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)
