@@ -8,3 +8,4 @@
 ### [物聯網認證題庫](https://www.ipas.org.tw/AbilityPageContent.aspx?ablno=80b8b420-21e3-45eb-8762-dfea9a0af224&mnuno=657e91fb-d48c-474f-aa6a-beb8257cd1da&pgeno=d3366672-ba08-4ef8-bd02-949a92bb3851)
 ### [雲端測試](https://github.com/jumbokh/ESP8266_Cloud_LAB)
 ### [FLASS 建置參考](http://frrut.com/youtube/)
+### [在樹莓派安裝 nodejs](bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered))
