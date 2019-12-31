@@ -5,4 +5,4 @@
 
 ### [電腦丙級軟體應用檢定](https://sites.google.com/a/pksh.ylc.edu.tw/zhuang-yi-jun/dian-nao-ruan-ti-ying-yong-bing-ji-jian-ding-ti-ku-zi-liao)
 ![Jetson Nano](nvidia-jetson-nano-developer-kit.jpg)
-### $$f(x) = x^2$$
+
