@@ -9,13 +9,13 @@
 #### You just need to create a Template node and add the following:
 <pre>
 < div style="margin-bottom: 10px;">
-<img src="https://YOUR-ESP32-CAM-IP-ADDRESS" width="650px">
+< img src="https://YOUR-ESP32-CAM-IP-ADDRESS" width="650px">
 < /div>
 </pre>
 
 #### In the src attribute, you need to type your ESP32-CAM IP address:
-
-<div style="margin-bottom: 10px;">
-<img src="https://192.168.1.91" width="650px">
-</div>
-
+<pre>
+< div style="margin-bottom: 10px;">
+< img src="https://192.168.1.91" width="650px">
+< /div>
+</pre>
