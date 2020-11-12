@@ -9,5 +9,5 @@
 ### [雲端測試](https://github.com/jumbokh/ESP8266_Cloud_LAB)
 ### [FLASS 建置參考](http://frrut.com/youtube/)
 ### [在樹莓派安裝 nodejs :](https://atceiling.blogspot.com/2019/07/raspberry-pi-51node-reddashboard.html)
-##### bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered)
-### 
+##### outdated: bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered)
+##### bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
