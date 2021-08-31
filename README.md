@@ -12,3 +12,4 @@
 ##### outdated: bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered)
 ##### bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
 ### [Opendata Flow](https://ithelp.ithome.com.tw/m/articles/10188649?fbclid=IwAR2eAFjtYaBjlvJLdzoeie0OYCIPYkzm9rIEOYuP-OzSfJ9Wb0fdEkM9Bgs)
+* [Node-RED 連結MQTT 資料上傳至 Google Sheet服務](https://hackmd.io/@LHB-0222/NodeRED-GSeet?fbclid=IwAR1IsEsvUG7Lr0D9XZtThn-pWPHSVGMNRkFtrfjpeoWBFqI-IgkOVwfIBwc)
