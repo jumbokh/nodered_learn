@@ -5,6 +5,7 @@
 * https://nodered.org/docs/getting-started/windows
 ### 執行:
 * C:\users\user>node-red
+* ![node-red](https://github.com/jumbokh/nodered_learn/blob/master/nodered.JPG)
 ## 雲端服務管理課程
 ### git init
 ### git add README.md
