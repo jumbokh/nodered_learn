@@ -1,0 +1,99 @@
+[
+    {
+        "id": "6bcc0b6cf37d63b6",
+        "type": "tab",
+        "label": "openWeathermap",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a7de06c2.1cffa8",
+        "type": "debug",
+        "z": "6bcc0b6cf37d63b6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "4145e81a.5fff78",
+        "type": "inject",
+        "z": "6bcc0b6cf37d63b6",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 340.9999694824219,
+        "y": 185,
+        "wires": [
+            [
+                "5f716947.177a98"
+            ]
+        ]
+    },
+    {
+        "id": "5f716947.177a98",
+        "type": "openweathermap",
+        "z": "6bcc0b6cf37d63b6",
+        "name": "jumbo",
+        "wtype": "current",
+        "lon": "",
+        "lat": "",
+        "city": "Kaohsiung",
+        "country": "tw",
+        "language": "zh_tw",
+        "x": 520,
+        "y": 260,
+        "wires": [
+            [
+                "a7de06c2.1cffa8",
+                "621bd6c0c6d076e7"
+            ]
+        ]
+    },
+    {
+        "id": "621bd6c0c6d076e7",
+        "type": "function",
+        "z": "6bcc0b6cf37d63b6",
+        "name": "get Weather",
+        "func": "try {\n    var data = JSON.parse(msg.payload);\n    var tempc = data.tempc;\n    var detail = data.detail;\n\n    msg.payload = { \"tempc\": tempc, \"detail\": detail };\n    return msg;\n} catch (error) {\n    // Handle parsing errors\n    console.error(\"Error parsing JSON data:\", error);\n    return null; // Or handle the error in an appropriate way for your use case\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 180,
+        "wires": [
+            [
+                "10a519e9fc771a32"
+            ]
+        ]
+    },
+    {
+        "id": "10a519e9fc771a32",
+        "type": "debug",
+        "z": "6bcc0b6cf37d63b6",
+        "name": "debug 241",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 180,
+        "wires": []
+    }
+]

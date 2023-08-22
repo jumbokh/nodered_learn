@@ -1,0 +1,249 @@
+[
+    {
+        "id": "47a627145bd31e47",
+        "type": "tab",
+        "label": "AQI_Basic",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2025a6eb047c9dac",
+        "type": "inject",
+        "z": "47a627145bd31e47",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 490,
+        "y": 180,
+        "wires": [
+            [
+                "933e15751ebcd92a"
+            ]
+        ]
+    },
+    {
+        "id": "933e15751ebcd92a",
+        "type": "http request",
+        "z": "47a627145bd31e47",
+        "name": "http AQI 查詢",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://data.epa.gov.tw/api/v2/aqx_p_432?api_key=d9b7900e-84f1-4c70-bb51-8f2effa92953&limit=1000&sort=ImportDate%20desc&format=json",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 670,
+        "y": 180,
+        "wires": [
+            [
+                "e7542388e0b8c5e2",
+                "0b10871d318d6f65"
+            ]
+        ]
+    },
+    {
+        "id": "0f82348a1b5737e0",
+        "type": "debug",
+        "z": "47a627145bd31e47",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1310,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "0b10871d318d6f65",
+        "type": "change",
+        "z": "47a627145bd31e47",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "*.*.$[sitename=\"左營\"]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 180,
+        "wires": [
+            [
+                "57b90b479ebfaf9b",
+                "0191cda95a6e6d59"
+            ]
+        ]
+    },
+    {
+        "id": "57b90b479ebfaf9b",
+        "type": "function",
+        "z": "47a627145bd31e47",
+        "name": "get data",
+        "func": "var str1 = '我是 謝坤達 我居住高雄左營 PM2.5='+ msg.payload['pm2.5'];\nvar LINEstr = str1 + ',  AQI='+ msg.payload.aqi + '\\n 空氣品質:' + msg.payload.status;\nflow.set('MsgStr',LINEstr);\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 180,
+        "wires": [
+            [
+                "0f82348a1b5737e0"
+            ]
+        ]
+    },
+    {
+        "id": "e7542388e0b8c5e2",
+        "type": "debug",
+        "z": "47a627145bd31e47",
+        "name": "debug 52",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "6171eba0f59a9f64",
+        "type": "function",
+        "z": "47a627145bd31e47",
+        "name": "",
+        "func": "const img = msg.payload;\nvar LINEstr = flow.get('MsgStr');\nmsg.payload = {\n    \"message\": LINEstr,\n    \"imageFile\": {\n        \"value\": img,\n        \"options\": {\n            \"filename\": \"LINE.png\",\n            \"contentType\": \"image/png\"\n        }\n    }\n};\n\nmsg.headers = {\n    \"authorization\": \"Bearer your Token\",\n    \"content-type\": \"multipart/form-data\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 260,
+        "wires": [
+            [
+                "fcb28f4ab19c4cd3"
+            ]
+        ]
+    },
+    {
+        "id": "fcb28f4ab19c4cd3",
+        "type": "http request",
+        "z": "47a627145bd31e47",
+        "name": "LINE Image Notify",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://notify-api.line.me/api/notify",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1110,
+        "y": 260,
+        "wires": [
+            [
+                "3ca5286c09a1587c"
+            ]
+        ]
+    },
+    {
+        "id": "3ca5286c09a1587c",
+        "type": "debug",
+        "z": "47a627145bd31e47",
+        "name": "debug 226",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1310,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "7d34fcd199e35cfe",
+        "type": "file in",
+        "z": "47a627145bd31e47",
+        "name": "",
+        "filename": "c:\\test\\AQI-1.png",
+        "filenameType": "str",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 690,
+        "y": 260,
+        "wires": [
+            [
+                "6171eba0f59a9f64"
+            ]
+        ]
+    },
+    {
+        "id": "0191cda95a6e6d59",
+        "type": "debug",
+        "z": "47a627145bd31e47",
+        "name": "debug 240",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "a70b630823530806",
+        "type": "comment",
+        "z": "47a627145bd31e47",
+        "name": "new api",
+        "info": "https://data.​moenv.gov.tw/api/v2/aqx_p_432?api_key=d9b7900e-84f1-4c70-bb51-8f2effa92953&limit=1000&sort=ImportDate%20desc&format=json",
+        "x": 730,
+        "y": 40,
+        "wires": []
+    }
+]

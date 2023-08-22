@@ -1,0 +1,598 @@
+[
+    {
+        "id": "165d9d8d.b6c632",
+        "type": "tab",
+        "label": "AQI_Advance",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a9c3f8da.b5a5b8",
+        "type": "http request",
+        "z": "165d9d8d.b6c632",
+        "name": "抓取 AQI",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://data.epa.gov.tw/api/v2/aqx_p_432?api_key=d9b7900e-84f1-4c70-bb51-8f2effa92953&limit=1000&sort=ImportDate%20desc&format=json",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 780,
+        "y": 440,
+        "wires": [
+            [
+                "d3f6d847.d3dfd8",
+                "b768cd9.d8c263"
+            ]
+        ]
+    },
+    {
+        "id": "b768cd9.d8c263",
+        "type": "function",
+        "z": "165d9d8d.b6c632",
+        "name": "取出區域AQI",
+        "func": "\nflow.set('aqi',Number(msg.payload.records[12].aqi));\nflow.set('SiteName' , msg.payload.records[12].sitename);\nmsg.site = flow.get('SiteName') ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1170,
+        "y": 440,
+        "wires": [
+            [
+                "14dfe1a3.c7c8ee",
+                "6baf70a3.38b0b"
+            ]
+        ]
+    },
+    {
+        "id": "14dfe1a3.c7c8ee",
+        "type": "debug",
+        "z": "165d9d8d.b6c632",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1350,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "2e22bc63.e99ad4",
+        "type": "inject",
+        "z": "165d9d8d.b6c632",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 630,
+        "y": 440,
+        "wires": [
+            [
+                "a9c3f8da.b5a5b8"
+            ]
+        ]
+    },
+    {
+        "id": "6baf70a3.38b0b",
+        "type": "switch",
+        "z": "165d9d8d.b6c632",
+        "name": "AQI等級",
+        "property": "aqi",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "50",
+                "vt": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "51",
+                "vt": "num",
+                "v2": "100",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "101",
+                "vt": "num",
+                "v2": "150",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "151",
+                "vt": "num",
+                "v2": "200",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "201",
+                "vt": "num",
+                "v2": "300",
+                "v2t": "num"
+            },
+            {
+                "t": "gt",
+                "v": "300",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 7,
+        "x": 1340,
+        "y": 440,
+        "wires": [
+            [
+                "9be6e9bd.3a2858"
+            ],
+            [
+                "b14d0c82.588e2"
+            ],
+            [
+                "30226a35.e31276"
+            ],
+            [
+                "425a5f87.2898b"
+            ],
+            [
+                "c48fc36e.2b102"
+            ],
+            [
+                "5d71bdb7.eb5244"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "9be6e9bd.3a2858",
+        "type": "change",
+        "z": "165d9d8d.b6c632",
+        "name": "空氣:良好",
+        "rules": [
+            {
+                "t": "set",
+                "p": "aqiStatus",
+                "pt": "msg",
+                "to": "良好",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1560,
+        "y": 340,
+        "wires": [
+            [
+                "5179b38caa75a1c2"
+            ]
+        ]
+    },
+    {
+        "id": "b14d0c82.588e2",
+        "type": "change",
+        "z": "165d9d8d.b6c632",
+        "name": "空氣:普通",
+        "rules": [
+            {
+                "t": "set",
+                "p": "aqiStatus",
+                "pt": "msg",
+                "to": "普通",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1560,
+        "y": 380,
+        "wires": [
+            [
+                "5179b38caa75a1c2"
+            ]
+        ]
+    },
+    {
+        "id": "30226a35.e31276",
+        "type": "change",
+        "z": "165d9d8d.b6c632",
+        "name": "空氣:對敏感族群不健康",
+        "rules": [
+            {
+                "t": "set",
+                "p": "aqiStatus",
+                "pt": "msg",
+                "to": "對敏感族群不健康",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 420,
+        "wires": [
+            [
+                "5179b38caa75a1c2"
+            ]
+        ]
+    },
+    {
+        "id": "425a5f87.2898b",
+        "type": "change",
+        "z": "165d9d8d.b6c632",
+        "name": "空氣:對所有族群不健康",
+        "rules": [
+            {
+                "t": "set",
+                "p": "aqiStatus",
+                "pt": "msg",
+                "to": "對所有族群不健康",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 460,
+        "wires": [
+            [
+                "5179b38caa75a1c2"
+            ]
+        ]
+    },
+    {
+        "id": "c48fc36e.2b102",
+        "type": "change",
+        "z": "165d9d8d.b6c632",
+        "name": "空氣:非常不健康",
+        "rules": [
+            {
+                "t": "set",
+                "p": "aqiStatus",
+                "pt": "msg",
+                "to": "非常不健康",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1580,
+        "y": 500,
+        "wires": [
+            [
+                "5179b38caa75a1c2"
+            ]
+        ]
+    },
+    {
+        "id": "5d71bdb7.eb5244",
+        "type": "change",
+        "z": "165d9d8d.b6c632",
+        "name": "空氣:危害",
+        "rules": [
+            {
+                "t": "set",
+                "p": "aqiStatus",
+                "pt": "msg",
+                "to": "危害",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1560,
+        "y": 540,
+        "wires": [
+            [
+                "5179b38caa75a1c2"
+            ]
+        ]
+    },
+    {
+        "id": "d5b210ec.2701",
+        "type": "function",
+        "z": "165d9d8d.b6c632",
+        "name": "檔名與內容",
+        "func": "msg.filename = `AQI-${msg.day}.csv`;\nmsg.SiteName = flow.get('SiteName');\nmsg.aqi = flow.get('aqi');\nmsg.payload = ` ${msg.time},${msg.SiteName},${msg.aqi},${msg.aqiStatus}`;\nflow.set('MSG',msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1350,
+        "y": 760,
+        "wires": [
+            [
+                "ad2b790b.9c8738",
+                "aacfdba5.024c68",
+                "05c958a240843434"
+            ]
+        ]
+    },
+    {
+        "id": "ad2b790b.9c8738",
+        "type": "file",
+        "z": "165d9d8d.b6c632",
+        "name": "",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "Big5",
+        "x": 1560,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "aacfdba5.024c68",
+        "type": "function",
+        "z": "165d9d8d.b6c632",
+        "name": "轉換 MQTT資訊",
+        "func": "var n=flow.get('SiteName');\nmsg.payload =  n +\" AQI:\" + msg.aqi + \"  \" + msg.aqiStatus\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1580,
+        "y": 800,
+        "wires": [
+            [
+                "5aea90ba.c179"
+            ]
+        ]
+    },
+    {
+        "id": "5aea90ba.c179",
+        "type": "mqtt out",
+        "z": "165d9d8d.b6c632",
+        "name": "",
+        "topic": "AQI_TW",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "0d3c8d53a9b8e168",
+        "x": 1740,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "d3f6d847.d3dfd8",
+        "type": "debug",
+        "z": "165d9d8d.b6c632",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1130,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "20a804fb.f6b3fc",
+        "type": "comment",
+        "z": "165d9d8d.b6c632",
+        "name": "JS 日期取得",
+        "info": "# var D = new Date();\n# var Y = D.getFullYear();\n# var M = D.getMonth();\n# var Date = D.getFate();\n# var Hours = D.getHours();\n# var Minutes = D.getMinutes();\n# var Seconds = D.getSeconds();",
+        "x": 790,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "5179b38caa75a1c2",
+        "type": "change",
+        "z": "165d9d8d.b6c632",
+        "name": "取得日期",
+        "rules": [
+            {
+                "t": "set",
+                "p": "day",
+                "pt": "msg",
+                "to": "$now('[Y0001]-[M01]-[D01]','+0800')\t",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "time",
+                "pt": "msg",
+                "to": "$now('[h01]:[m01]:[s01]','+0800')\t",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1160,
+        "y": 760,
+        "wires": [
+            [
+                "d5b210ec.2701"
+            ]
+        ]
+    },
+    {
+        "id": "a82de3cc7553c967",
+        "type": "file in",
+        "z": "165d9d8d.b6c632",
+        "name": "",
+        "filename": "filename",
+        "filenameType": "msg",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 1720,
+        "y": 700,
+        "wires": [
+            [
+                "7e540a9e00ca3dfc"
+            ]
+        ]
+    },
+    {
+        "id": "7e540a9e00ca3dfc",
+        "type": "function",
+        "z": "165d9d8d.b6c632",
+        "name": "",
+        "func": "const img = msg.payload;\nlet msgStr = flow.get('MSG');\nmsg.payload = {\n    \"message\": msgStr,\n    \"imageFile\": {\n        \"value\": img,\n        \"options\": {\n            \"filename\": \"LINE.png\",\n            \"contentType\": \"image/png\"\n        }\n    }\n};\n\nmsg.headers = {\n    \"authorization\": \"Bearer pUHMOKBrr9KMVd3AIzQGY73nwSqSJw0a3FLVQ01ivmh\",\n    \"content-type\": \"multipart/form-data\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1850,
+        "y": 700,
+        "wires": [
+            [
+                "ac6372fd593f5525"
+            ]
+        ]
+    },
+    {
+        "id": "ac6372fd593f5525",
+        "type": "http request",
+        "z": "165d9d8d.b6c632",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://notify-api.line.me/api/notify",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1980,
+        "y": 700,
+        "wires": [
+            [
+                "8b3822ba39465144"
+            ]
+        ]
+    },
+    {
+        "id": "8b3822ba39465144",
+        "type": "debug",
+        "z": "165d9d8d.b6c632",
+        "name": "debug 232",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2130,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "05c958a240843434",
+        "type": "function",
+        "z": "165d9d8d.b6c632",
+        "name": "function 122",
+        "func": "var aqiValue = flow.get('aqi');\nif( aqiValue < 50) \n  msg.filename = \"/home/jumbo/AQI/AQI-1.png\";\nif (aqiValue >= 50 && aqiValue < 100)\n  msg.filename = \"/home/jumbo/AQI/AQI-2.png\";  \nif (aqiValue > 100)\n  msg.filename = \"/home/jumbo/AQI/AQI-3.png\";    \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1570,
+        "y": 700,
+        "wires": [
+            [
+                "a82de3cc7553c967"
+            ]
+        ]
+    },
+    {
+        "id": "0d3c8d53a9b8e168",
+        "type": "mqtt-broker",
+        "name": "broker.emqx.io",
+        "broker": "broker.emqx.io",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
